@@ -18,6 +18,23 @@ public class SpellingBee {
         sbg.showMessage("puzzleAction is not yet implemented", Color.RED);
     }
 
+    private boolean validationHelperFunc(String s) {
+        if (s.length() != 7) {
+            sbg.showMessage("input is not 7 characters", Color.RED);
+            return false;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            char element = s.charAt(i);
+            if (!Character.isLetter(element)) {
+                sbg.showMessage("input is not part of the 26 letters");
+                return false;
+            }
+        }
+        for (int i = 0; i < s.length(); i++) {
+            
+        }
+    }
+
     private void solveAction() {
         sbg.showMessage("solveAction is not yet implemented", Color.RED);
     }

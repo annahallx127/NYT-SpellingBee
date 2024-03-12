@@ -39,7 +39,7 @@ your team is fine as long as you don't share code. [1 point]
 WHAT RESOURCES DID YOU USE? Please give specific URLs and state which ones
 were particularly helpful. You do not need to cite course materials. [1 point]
 
-
+https://stackoverflow.com/questions/4047808/what-is-the-best-way-to-tell-if-a-character-is-a-letter-or-number-in-java-withou
 ----------------------------------------
 
 GIVE ONE OR MORE PARAGRAPHS REFLECTING ON YOUR EXPERIENCE WITH THE
