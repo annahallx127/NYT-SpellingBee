@@ -14,12 +14,29 @@ public class SpellingBee {
     private static final String ENGLISH_DICTIONARY = "res/EnglishWords.txt";
 
     private SpellingBeeGraphics sbg;
+    private char centerLetter;
 
     public void run() {
         sbg = new SpellingBeeGraphics();
         sbg.addField("Puzzle", (s) -> puzzleAction(s));
-        sbg.addButton("Solve", (s) -> solveAction());
+//        sbg.addButton("Solve", (s) -> solveAction());
     }
+
+    public void useDictionary() {
+        HashSet<String> dictionary = new HashSet<>();
+        try {
+            Scanner scanner = new Scanner(new File(ENGLISH_DICTIONARY));
+            while (scanner.hasNextLine()) {
+                String word = scanner.nextLine().trim().toLowerCase();
+                dictionary.add(word);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     private void puzzleAction(String s) {
         if (!validationHelperFunc(s)) {
@@ -27,6 +44,7 @@ public class SpellingBee {
         } else {
             sbg.setBeehiveLetters(s);
         }
+
     }
 
     private boolean validationHelperFunc(String s) {
@@ -66,15 +84,18 @@ public class SpellingBee {
     }
 
     private void isValidWord(String word){
-        centerLetter = toString().toUpperCase().charAt(0);
-        puzzleLetters = s.toLowerCase();
+        puzzleLetters = puzzleLetters.toLowerCase();
         if (word.length() < 4 || !word.contains(Character.toString(centerLetter))) {
             return false;
-            for (char e : word.toCharArray()){
-                if (!puzzleLetters;)
+            for (char e : word.toCharArray()) {
+                if (!puzzleLetters.contains(Character.toString(e))) {
+                    return false;
+                }
+                }
+            return true;
+
             }
 
-        }
 
 
 
