@@ -19,6 +19,9 @@ public class SpellingBee {
     private char centerLetter;
     private ArrayList<String> dictionary = new ArrayList();
     private HashSet<Character> letterSet = new HashSet<>();
+    private int wordsFound = 0;
+    private int totalScore = 0;
+
 
     public void run() {
         sbg = new SpellingBeeGraphics();
@@ -80,13 +83,14 @@ public class SpellingBee {
     private void solveAction() {
         useDictionary();
         wordPoints();
-        sbg.showMessage("");
+        sbg.showMessage( + wordsFound + " words; " + totalScore + " points" , Color.BLACK);
     }
 
     private void wordPoints() {
 
         for (int i = 0; i < dictionary.size(); i++) {
             HashSet<Character> wordSet = new HashSet<>();
+            int score = 0;
             for (Character letter : dictionary.get(i).toCharArray()) {
                 wordSet.add(letter);
                 if (!letterSet.contains(letter)) {
@@ -96,16 +100,18 @@ public class SpellingBee {
             if (isValidWord(dictionary.get(i))) {
                 String word = dictionary.get(i);
                 int length = word.length();
-                System.out.println(wordSet);
-                System.out.println(letterSet);
                 if (wordSet.size() == 7) {
-                    System.out.println("wohatuhegahgweo");
-                    sbg.addWord(String.format("%s (%s)", word, length + 7), Color.BLUE);
+                score = length + 7;
+                    sbg.addWord(String.format("%s (%s)", word, score), Color.BLUE);
                 } else if (length == 4) {
-                    sbg.addWord(String.format("%s (%s)", word, 1));
+                    score = 1;
+                    sbg.addWord(String.format("%s (%s)", word, score));
                 } else {
-                    sbg.addWord(String.format("%s (%s)", word, length));
+                    score = length;
+                    sbg.addWord(String.format("%s (%s)", word, score));
                 }
+                totalScore += score;
+                wordsFound++;
 
             }
         }
