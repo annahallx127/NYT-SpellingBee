@@ -91,6 +91,8 @@ public class SpellingBee {
             }
 
         sbg.showMessage("");
+        System.out.println("new");
+
     }
 
 
