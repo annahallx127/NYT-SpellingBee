@@ -49,6 +49,8 @@ public class SpellingBee {
 
     }
 
+
+
     private boolean validationHelperFunc(String s) {
         if (s.length() != 7) {
             sbg.showMessage("input is not 7 characters", Color.RED);
@@ -64,7 +66,7 @@ public class SpellingBee {
         }
 
         for (int i = 0; i < s.length(); i++) {
-            char characters = Character.toUpperCase(s.charAt(i));
+            char characters = Character.toLowerCase(s.charAt(i));
             if (letterSet.add(characters) == false) {
                 sbg.showMessage("input has a letter that appears more than once", Color.RED);
                 return false;
@@ -77,24 +79,36 @@ public class SpellingBee {
 
     private void solveAction() {
         useDictionary();
+        wordPoints();
+        sbg.showMessage("");
+    }
 
+    private void wordPoints() {
 
         for (int i = 0; i < dictionary.size(); i++) {
-            for (Character letter: dictionary.get(i).toCharArray()){
+            HashSet<Character> wordSet = new HashSet<>();
+            for (Character letter : dictionary.get(i).toCharArray()) {
+                wordSet.add(letter);
                 if (!letterSet.contains(letter)) {
-                        sbg.showMessage("does not contain any of the inputted letters", Color.RED);
+                    sbg.showMessage("does not contain any of the inputted letters", Color.RED);
                 }
             }
-                if (isValidWord(dictionary.get(i))) {
-                    sbg.addWord(dictionary.get(i));
+            if (isValidWord(dictionary.get(i))) {
+                String word = dictionary.get(i);
+                int length = word.length();
+                System.out.println(wordSet);
+                System.out.println(letterSet);
+                if (wordSet.size() == 7) {
+                    System.out.println("wohatuhegahgweo");
+                    sbg.addWord(String.format("%s (%s)", word, length + 7), Color.BLUE);
+                } else if (length == 4) {
+                    sbg.addWord(String.format("%s (%s)", word, 1));
+                } else {
+                    sbg.addWord(String.format("%s (%s)", word, length));
                 }
+
             }
-
-        sbg.showMessage("");
-        System.out.println("new");
-        System.out.println("new");
-
-
+        }
     }
 
 
@@ -110,7 +124,7 @@ public class SpellingBee {
         }
         HashSet<Character> wordSet = new HashSet<>();
         for (int i = 0; i < word.length(); i++) {
-            if (!letterSet.contains(Character.toUpperCase(puzzleLetters.charAt(i)))) {
+            if (!letterSet.contains(Character.toLowerCase(puzzleLetters.charAt(i)))) {
                 sbg.showMessage("word does not contain one of given letters", Color.RED);
                 return false;
             }
