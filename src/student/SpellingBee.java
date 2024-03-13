@@ -3,13 +3,10 @@ package student;
 import edu.willamette.cs1.spellingbee.SpellingBeeGraphics;
 
 import java.awt.Color;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class SpellingBee {
@@ -27,6 +24,8 @@ public class SpellingBee {
         sbg = new SpellingBeeGraphics();
         sbg.addField("Puzzle", (s) -> puzzleAction(s));
         sbg.addButton("Solve", (s) -> solveAction());
+        sbg.addField("Word", (s) -> showMessage());
+
     }
 
     public void useDictionary() {
@@ -83,7 +82,7 @@ public class SpellingBee {
     private void solveAction() {
         useDictionary();
         wordPoints();
-        sbg.showMessage( + wordsFound + " words; " + totalScore + " points" , Color.BLACK);
+        sbg.showMessage( + wordsFound + " words; " + totalScore + " points");
     }
 
     private void wordPoints() {
@@ -137,7 +136,7 @@ public class SpellingBee {
         }
         return true;
     }
-
+    
 
     public static void main(String[] args) {
         new SpellingBee().run();
