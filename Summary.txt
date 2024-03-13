@@ -42,13 +42,16 @@ WHAT RESOURCES DID YOU USE? Please give specific URLs and state which ones
 were particularly helpful. You do not need to cite course materials. [1 point]
 
 https://www.educative.io/answers/what-is-characterisletter-in-java#:~:text=The%20isLetter()%20funct
-ion%20returns,of%20the%20isLetter()%20function. --> intruduced me to the isLetter() function for milestone 1
+ion%20returns,of%20the%20isLetter()%20function. --> introduced me to the isLetter() function for milestone 1
 https://www.w3schools.com/java/java_hashset.asp -> help with figuring out hashset
 https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.hashset-1.add?view=net-8.0#:~:
 text=Returns&text=true%20if%20the%20element%20is,the%20element%20is%20already%20present. --> helped me with
 understanding how to use .add in the hashset
 https://www.w3schools.com/java/ref_string_charat.asp#:~:text=The%20charAt()%20method%20returns,
 is%201%2C%20and%20so%20on. --> charAt() help
+https://stackoverflow.com/questions/18280373/iterate-dictionary-in-java
+https://www.w3schools.com/java/java_hashset.asp
+https://www.w3schools.com/java/ref_string_trim.asp --> introduced me to trim
 ----------------------------------------
 
 GIVE ONE OR MORE PARAGRAPHS REFLECTING ON YOUR EXPERIENCE WITH THE
