@@ -15,7 +15,7 @@ public class SpellingBee {
     private ArrayList<String> dictionary = new ArrayList();
     private HashSet<Character> letterSet = new HashSet<>();
     private HashSet<String> foundWords = new HashSet<>();
-    HashSet<Character> wordSet = new HashSet<>();
+    private HashSet<Character> wordSet = new HashSet<>();
 
     private int wordsFound = 0;
     private int totalScore = 0;
@@ -67,7 +67,7 @@ public class SpellingBee {
         letterSet.clear();
         for (int i = 0; i < s.length(); i++) {
             char characters = Character.toLowerCase(s.charAt(i));
-            if (letterSet.add(characters) == false) {
+            if (!letterSet.add(characters)) {
                 sbg.showMessage("input has a letter that appears more than once", Color.RED);
                 return false;
             }
