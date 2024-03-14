@@ -169,6 +169,7 @@ public class SpellingBee {
                 c++;
             }
         }
+
         if (c == LENGTH_1) {
             score = length + PANOGRAM_SCORE;
         } else if (length == LENGTH_2) {
