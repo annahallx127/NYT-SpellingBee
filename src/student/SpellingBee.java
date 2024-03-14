@@ -147,7 +147,7 @@ public class SpellingBee {
         } else if (!word.contains(Character.toString(centerLetter))) {
             sbg.showMessage("Word must include the center letter", Color.RED);
         } else if (!isValidWord(word)) {
-            sbg.showMessage("Word include letters not in the beehive", Color.RED);
+            sbg.showMessage("Word includes letters not in the beehive", Color.RED);
         } else if (foundWords.contains(word)) {
             sbg.showMessage("Word has already been found", Color.RED);
         } else {
@@ -163,9 +163,14 @@ public class SpellingBee {
     private int findScore(String word) {
         int length = word.length();
         int score = 0;
-        if (wordSet.size() == LENGTH_1) {
+        int c = 0;
+        for (char letter : sbg.getBeehiveLetters().toLowerCase().toCharArray()) {
+            if (word.contains(Character.toString(letter))) {
+                c++;
+            }
+        }
+        if (c == LENGTH_1) {
             score = length + PANOGRAM_SCORE;
-            sbg.addWord(String.format("%s (%s)", word, score));
         } else if (length == LENGTH_2) {
             score = 1;
             return score;
