@@ -85,7 +85,6 @@ public class SpellingBee {
         useDictionary();
         wordPoints();
         sbg.showMessage(+wordsFound + " words; " + totalScore + " points");
-
     }
 
     private void wordPoints() {
@@ -101,7 +100,7 @@ public class SpellingBee {
 
             if (isValidWord(word)) {
                 int length = word.length();
-                if (c == LENGTH_1) {
+                if (c == letterSet.size()) {
                     score = length + PANOGRAM_SCORE;
                     sbg.addWord(String.format("%s (%s)", word, score), Color.BLUE);
                 } else if (length == LENGTH_2) {
@@ -154,7 +153,6 @@ public class SpellingBee {
             foundWords.add(word);
             int score = findScore(word);
             totalScore += score;
-            sbg.addWord(String.format("%s (%s)", word, score));
             sbg.showMessage(wordsFound + " words; " + totalScore + " points");
             wordsFound++;
         }
@@ -162,24 +160,22 @@ public class SpellingBee {
 
     private int findScore(String word) {
         int length = word.length();
-        int score = 0;
         int c = 0;
         for (char letter : sbg.getBeehiveLetters().toLowerCase().toCharArray()) {
             if (word.contains(Character.toString(letter))) {
                 c++;
             }
         }
-
-        if (c == LENGTH_1) {
-            score = length + PANOGRAM_SCORE;
+        if (c == letterSet.size()) {
+            sbg.addWord(String.format("%s (%s)", word, length + PANOGRAM_SCORE), Color.BLUE);
+            return length + PANOGRAM_SCORE;
         } else if (length == LENGTH_2) {
-            score = 1;
-            return score;
+            sbg.addWord(String.format("%s (%s)", word, 1));
+            return 1;
         } else {
+            sbg.addWord(String.format("%s (%s)", word, length));
             return length;
         }
-        return score;
-
     }
 
     //bonus!
