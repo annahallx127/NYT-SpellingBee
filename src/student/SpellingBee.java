@@ -5,9 +5,7 @@ import edu.willamette.cs1.spellingbee.SpellingBeeGraphics;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.util.*;
 
 public class SpellingBee {
     private static final String ENGLISH_DICTIONARY = "res/EnglishWords.txt";
@@ -19,16 +17,15 @@ public class SpellingBee {
     private HashSet<String> foundWords = new HashSet<>();
     HashSet<Character> wordSet = new HashSet<>();
 
-
     private int wordsFound = 0;
     private int totalScore = 0;
-
 
     public void run() {
         sbg = new SpellingBeeGraphics();
         sbg.addField("Puzzle", (s) -> puzzleAction(s));
         sbg.addButton("Solve", (s) -> solveAction());
         sbg.addField("Word", (s) -> findWords(s));
+        sbg.addButton("Shuffle", (s) -> shuffleLetters());
         useDictionary();
     }
 
@@ -49,11 +46,9 @@ public class SpellingBee {
 
     private void puzzleAction(String s) {
         if (!validationHelperFunc(s)) {
-            validationHelperFunc(s);
-        } else {
-            sbg.setBeehiveLetters(s);
+            return;
         }
-
+        sbg.setBeehiveLetters(s);
     }
 
 
@@ -94,16 +89,16 @@ public class SpellingBee {
 
     private void wordPoints() {
         for (int i = 0; i < dictionary.size(); i++) {
+            String word = dictionary.get(i);
             int score = 0;
             int c = 0;
             for (char letter : sbg.getBeehiveLetters().toLowerCase().toCharArray()) {
-                if(dictionary.get(i).contains(Character.toString(letter))) {
+                if (word.contains(Character.toString(letter))) {
                     c++;
                 }
             }
 
-            if (isValidWord(dictionary.get(i))) {
-                String word = dictionary.get(i);
+            if (isValidWord(word)) {
                 int length = word.length();
                 if (c == 7) {
                     score = length + 7;
@@ -142,7 +137,6 @@ public class SpellingBee {
         return true;
     }
 
-    //keeps track of words found by the user
     private void findWords(String word) {
         word = word.toLowerCase();
         if (!dictionary.contains(word)) {
@@ -153,7 +147,7 @@ public class SpellingBee {
             sbg.showMessage("Word must include the center letter", Color.RED);
         } else if (!isValidWord(word)) {
             sbg.showMessage("Word include letters not in the beehive", Color.RED);
-        }  else if (foundWords.contains(word)) {
+        } else if (foundWords.contains(word)) {
             sbg.showMessage("Word has already been found", Color.RED);
         } else {
             foundWords.add(word);
@@ -165,8 +159,6 @@ public class SpellingBee {
         }
     }
 
-
-    //keeps track of users score
     private int findScore(String word) {
         int length = word.length();
         int score = 0;
@@ -179,6 +171,23 @@ public class SpellingBee {
             return length;
         }
         return score = 0;
+    }
+
+    //bonus!
+    public void shuffleLetters() {
+        char[] lettersDisplayed = sbg.getBeehiveLetters().toLowerCase().toCharArray();
+        List<Character> letters = new ArrayList<>();
+        for (int i = 1; i < lettersDisplayed.length; i++) {
+            letters.add(lettersDisplayed[i]);
+        }
+        Collections.shuffle(letters);
+        StringBuilder shuffledLettersBuilder = new StringBuilder();
+        shuffledLettersBuilder.append(centerLetter);
+        for (char c : letters) {
+            shuffledLettersBuilder.append(c);
+        }
+        String shuffledLetters = shuffledLettersBuilder.toString();
+        sbg.setBeehiveLetters(shuffledLetters);
     }
 
     public static void main(String[] args) {
