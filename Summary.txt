@@ -14,27 +14,29 @@ https://github.com/Fundies-2-Oakland/homework-6-anna-hw6
 DID YOU SUCCESSFULLY IMPLEMENT EVERYTHING THAT WAS REQUESTED? Either answer
 "Yes" or describe what you were and were not able to implement. [1 point]
 
-
+yes
 
 ----------------------------------------
 
 DOES EVERYTHING WORK TO THE BEST OF YOUR KNOWLEDGE, AND DO ALL TESTS PASS?
 If the answer is not "Yes", please state here which parts did not work and
 which tests did not pass. [1 point]
-
+yes
 
 ----------------------------------------
 
 WHAT WAS THE TOTAL AMOUNT OF TIME YOU SPENT ON THE ASSIGNMENT? Rather than
 giving a range, if you are unsure, give the average of the range. Use hours.
 [1 point]
-
+10 hours
 
 ----------------------------------------
 
 WHO DID YOU WORK WITH AND HOW? Discussing the assignment with people not on
 your team is fine as long as you don't share code. [1 point]
-
+We worked with TA Anish, Danny, and William.
+Anish helped with explaining how to make the panagram blue by using a for loop.
+Danny helped with explaning string concatenation.
 
 ----------------------------------------
 
