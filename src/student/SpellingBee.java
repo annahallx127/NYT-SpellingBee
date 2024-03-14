@@ -16,6 +16,10 @@ public class SpellingBee {
     private char centerLetter;
     private ArrayList<String> dictionary = new ArrayList();
     private HashSet<Character> letterSet = new HashSet<>();
+    private HashSet<String> foundWords = new HashSet<>();
+    HashSet<Character> wordSet = new HashSet<>();
+
+
     private int wordsFound = 0;
     private int totalScore = 0;
 
@@ -24,11 +28,12 @@ public class SpellingBee {
         sbg = new SpellingBeeGraphics();
         sbg.addField("Puzzle", (s) -> puzzleAction(s));
         sbg.addButton("Solve", (s) -> solveAction());
-        sbg.addField("Word", (s) -> showMessage());
-
+        sbg.addField("Word", (s) -> findWords(s));
+        useDictionary();
     }
 
     public void useDictionary() {
+        dictionary.clear();
         try {
             Scanner scanner = new Scanner(new File(ENGLISH_DICTIONARY));
             while (scanner.hasNextLine()) {
@@ -52,13 +57,11 @@ public class SpellingBee {
     }
 
 
-
     private boolean validationHelperFunc(String s) {
         if (s.length() != 7) {
             sbg.showMessage("input is not 7 characters", Color.RED);
             return false;
         }
-
         for (int i = 0; i < s.length(); i++) {
             char element = s.charAt(i);
             if (!Character.isLetter(element)) {
@@ -66,7 +69,7 @@ public class SpellingBee {
                 return false;
             }
         }
-
+        letterSet.clear();
         for (int i = 0; i < s.length(); i++) {
             char characters = Character.toLowerCase(s.charAt(i));
             if (letterSet.add(characters) == false) {
@@ -80,27 +83,30 @@ public class SpellingBee {
     }
 
     private void solveAction() {
+        sbg.clearWordList();
+        wordsFound = 0;
+        totalScore = 0;
         useDictionary();
         wordPoints();
-        sbg.showMessage( + wordsFound + " words; " + totalScore + " points");
+        sbg.showMessage(+wordsFound + " words; " + totalScore + " points");
+
     }
 
     private void wordPoints() {
-
         for (int i = 0; i < dictionary.size(); i++) {
-            HashSet<Character> wordSet = new HashSet<>();
             int score = 0;
-            for (Character letter : dictionary.get(i).toCharArray()) {
-                wordSet.add(letter);
-                if (!letterSet.contains(letter)) {
-                    sbg.showMessage("does not contain any of the inputted letters", Color.RED);
+            int c = 0;
+            for (char letter : sbg.getBeehiveLetters().toLowerCase().toCharArray()) {
+                if(dictionary.get(i).contains(Character.toString(letter))) {
+                    c++;
                 }
             }
+
             if (isValidWord(dictionary.get(i))) {
                 String word = dictionary.get(i);
                 int length = word.length();
-                if (wordSet.size() == 7) {
-                score = length + 7;
+                if (c == 7) {
+                    score = length + 7;
                     sbg.addWord(String.format("%s (%s)", word, score), Color.BLUE);
                 } else if (length == 4) {
                     score = 1;
@@ -127,7 +133,6 @@ public class SpellingBee {
             sbg.showMessage("word does not contain the center letter", Color.RED);
             return false;
         }
-        HashSet<Character> wordSet = new HashSet<>();
         for (int i = 0; i < word.length(); i++) {
             if (!letterSet.contains(Character.toLowerCase(puzzleLetters.charAt(i)))) {
                 sbg.showMessage("word does not contain one of given letters", Color.RED);
@@ -136,12 +141,51 @@ public class SpellingBee {
         }
         return true;
     }
-    
+
+    //keeps track of words found by the user
+    private void findWords(String word) {
+        word = word.toLowerCase();
+        if (!dictionary.contains(word)) {
+            sbg.showMessage("Word is not in the dictionary", Color.RED);
+        } else if (word.length() < 4) {
+            sbg.showMessage("Word must be four or more letters long", Color.RED);
+        } else if (!word.contains(Character.toString(centerLetter))) {
+            sbg.showMessage("Word must include the center letter", Color.RED);
+        } else if (!isValidWord(word)) {
+            sbg.showMessage("Word include letters not in the beehive", Color.RED);
+        }  else if (foundWords.contains(word)) {
+            sbg.showMessage("Word has already been found", Color.RED);
+        } else {
+            foundWords.add(word);
+            int score = findScore(word);
+            totalScore += score;
+            sbg.addWord(String.format("%s (%s)", word, score));
+            sbg.showMessage(wordsFound + " words; " + totalScore + " points");
+            wordsFound++;
+        }
+    }
+
+
+    //keeps track of users score
+    private int findScore(String word) {
+        int length = word.length();
+        int score = 0;
+        if (wordSet.size() == 7) {
+            score = length + 7;
+            sbg.addWord(String.format("%s (%s)", word, score));
+        } else if (length == 4) {
+            return score = 1;
+        } else {
+            return length;
+        }
+        return score = 0;
+    }
 
     public static void main(String[] args) {
         new SpellingBee().run();
     }
 }
+
 
 
 
