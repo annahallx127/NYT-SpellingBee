@@ -78,11 +78,12 @@ Decomposition was pretty hard because, at first, we didn't really know what acti
 put into each. However, as we got the hang of it later, we were able to delegate the right
 tasks to each helper method and better organize our code. The most difficult part of the assignment for us
 was making sure everything was either uppercase or lowercase. We had trouble with that until Danny pointed out to us
-that our dictionary was all lowercase, however, we were making our letters in our hash set, uppercase.
+that our dictionary was all lowercase, however, we were making our letters in our hash set, uppercase. Checkstyle also
+kept saying that the number 7 and 4 were magic numbers so we had to change some things.
 The most rewarding part of the project was taking a game that we all play and making our own version out of our code.
 I thought that was really cool to see that we could make our own nyt spelling bee. We did not create tests,
 I think it might have saved us time because we could directly see if it worked or not when we ran the program.
-What we learned from doikngv this assignment was sort of the basics of making a website or game. Such as the buttons
+What we learned from doing this assignment was sort of the basics of making a website or game. Such as the buttons
 and what they do during the game. It also gave us practice on creating good helper methods. Peer TA Danny was
 especially helpful!!
 

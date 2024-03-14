@@ -16,10 +16,11 @@ public class SpellingBee {
     private HashSet<Character> letterSet = new HashSet<>();
     private HashSet<String> foundWords = new HashSet<>();
     private HashSet<Character> wordSet = new HashSet<>();
-
     private int wordsFound = 0;
     private int totalScore = 0;
-
+    private static final int LENGTH_1 = 7;
+    private  static final int LENGTH_2 = 4;
+    private static final int PANOGRAM_SCORE = 7;
     public void run() {
         sbg = new SpellingBeeGraphics();
         sbg.addField("Puzzle", (s) -> puzzleAction(s));
@@ -53,7 +54,7 @@ public class SpellingBee {
 
 
     private boolean validationHelperFunc(String s) {
-        if (s.length() != 7) {
+        if (s.length() != LENGTH_1) {
             sbg.showMessage("input is not 7 characters", Color.RED);
             return false;
         }
@@ -100,10 +101,10 @@ public class SpellingBee {
 
             if (isValidWord(word)) {
                 int length = word.length();
-                if (c == 7) {
-                    score = length + 7;
+                if (c == LENGTH_1) {
+                    score = length + PANOGRAM_SCORE;
                     sbg.addWord(String.format("%s (%s)", word, score), Color.BLUE);
-                } else if (length == 4) {
+                } else if (length == LENGTH_2) {
                     score = 1;
                     sbg.addWord(String.format("%s (%s)", word, score));
                 } else {
@@ -120,7 +121,7 @@ public class SpellingBee {
 
     private boolean isValidWord(String word) {
         String puzzleLetters = word.toLowerCase();
-        if (word.length() < 4) {
+        if (word.length() < LENGTH_2) {
             sbg.showMessage("word is not four or more letters long", Color.RED);
             return false;
         }
@@ -141,7 +142,7 @@ public class SpellingBee {
         word = word.toLowerCase();
         if (!dictionary.contains(word)) {
             sbg.showMessage("Word is not in the dictionary", Color.RED);
-        } else if (word.length() < 4) {
+        } else if (word.length() < LENGTH_2) {
             sbg.showMessage("Word must be four or more letters long", Color.RED);
         } else if (!word.contains(Character.toString(centerLetter))) {
             sbg.showMessage("Word must include the center letter", Color.RED);
@@ -162,15 +163,17 @@ public class SpellingBee {
     private int findScore(String word) {
         int length = word.length();
         int score = 0;
-        if (wordSet.size() == 7) {
-            score = length + 7;
+        if (wordSet.size() == LENGTH_1) {
+            score = length + PANOGRAM_SCORE;
             sbg.addWord(String.format("%s (%s)", word, score));
-        } else if (length == 4) {
-            return score = 1;
+        } else if (length == LENGTH_2) {
+            score = 1;
+            return score;
         } else {
             return length;
         }
-        return score = 0;
+        return score;
+
     }
 
     //bonus!
